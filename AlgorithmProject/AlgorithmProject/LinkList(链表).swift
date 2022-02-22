@@ -59,8 +59,17 @@ class LinkList {
         return head
     }
     
-//    func detectCycle(_ head: ListNode?) -> ListNode? {
-//
-//    }
+    func getIntersectionNode(headA: ListNode?, headB: ListNode?) -> ListNode? {
+        if headA == nil || headB == nil { return nil }
+        var nodeA = headA, nodeB = headB
+        while nodeA?.val != nodeB?.val {
+            nodeA = nodeA?.next
+            if nodeA == nil, nodeB != nil { nodeA = headB }
+            nodeB = nodeB?.next
+            if nodeB == nil, nodeA != nil { nodeB = headA }
+            if nodeA == nil && nodeB == nil { break }
+        }
+        return nodeA
+    }
     
 }

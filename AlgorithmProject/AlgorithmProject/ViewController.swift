@@ -12,7 +12,7 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
+        print(getLeastNumbers([3,2,1], 2))
     }
     
     // TODO: 矩阵中的路径，机器人的运动范围，剪绳子，数值的整数次方，正则表达式的匹配，表示数值的字符串，树的子结构，栈的压入弹出序列，包含main函数的栈
@@ -123,6 +123,102 @@ class ViewController: UIViewController {
     func majorityElement(_ nums: [Int]) -> Int {
         let sort = nums.sorted(by: < )
         return sort[sort.count/2]
+    }
+    
+    func getLeastNumbers(_ arr: [Int], _ k: Int) -> [Int] {
+        var least: [Int] = []
+        for item in arr {
+            if least.count < k {
+                if let first = least.first, item <= first {
+                    least.insert(item, at: 0)
+                    continue
+                }
+                if let last = least.last, item >= last {
+                    least.append(last)
+                    continue
+                }
+                
+                var index = 0
+                for i in 0..<least.count {
+                    if item < least[i] {
+                        index = i
+                        break
+                    }
+                }
+                
+                least.insert(item, at: index)
+            }else{
+                
+                if let first = least.first, item <= first {
+                    least.insert(item, at: 0)
+                    least.removeLast()
+                    continue
+                }
+                
+                if let last = least.last, item >= last {
+                    continue
+                }
+                
+                var index = 0
+                for i in 0..<least.count {
+                    if item < least[i] {
+                        index = i
+                        break
+                    }
+                }
+                
+                least.insert(item, at: index)
+                least.removeLast()
+            }
+        }
+        return least
+    }
+    
+    
+}
+
+class MedianFinder {
+    
+    var elements: [Int] = []
+
+    init() {
+
+    }
+    
+    func addNum(_ num: Int) {
+        if elements.isEmpty {
+            elements.append(num)
+            return
+        }
+        
+        if let first = elements.first, first >= num {
+            elements.insert(num, at: 0)
+            return
+        }
+        
+        if let last = elements.last, last < num {
+            elements.append(num)
+            return
+        }
+        
+        var index = 0
+        for i in 0..<elements.count {
+            if elements[i] >= num {
+                index = i
+                break
+            }
+        }
+        
+        elements.insert(num, at: index)
+    }
+    
+    func findMedian() -> Double {
+        if elements.isEmpty { return 0 }
+        if elements.count % 2 == 0 {
+            return Double(elements[elements.count / 2] + elements[elements.count / 2 - 1])/2.0
+        }else{
+            return Double(elements[elements.count / 2])
+        }
     }
 }
 

@@ -35,6 +35,17 @@ class Recursion {
         return f
     }
     
+    func maxSubArray(_ nums: [Int]) -> Int {
+        if nums.isEmpty { return 0 }
+        var result = nums[0]
+        var sum: Int = 0
+        for item in nums {
+            sum = max(sum + item, item)
+            result = max(result, sum)
+        }
+        return result
+    }
+    
 }
 
 
