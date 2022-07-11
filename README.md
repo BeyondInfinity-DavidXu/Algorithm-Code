@@ -1,2 +1,1 @@
-# AlgorithmStudy
-剑指offer刷题学习记录
+### leetCode 刷题归纳
